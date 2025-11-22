@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TaskFlow Pro — JS</title>
+
+  <!-- custom CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- App container: holds the sidebar and the main content area -->
+  <div id="app" class="app">
+    <aside class="sidebar">
+      <!-- Sidebar / Navigation: brand, primary nav buttons, theme toggle -->
+      <div class="brand">
+        <h1>TaskFlow Pro</h1>
+        <p class="muted">Manage your life</p>
+      </div>
+
+      <!-- Primary navigation: each button routes to a different page view -->
+      <nav class="nav">
+        <button data-page="home" class="nav-btn active">🏠 Home</button>
+        <button data-page="tasks" class="nav-btn">📋 All Tasks</button>
+        <button data-page="today" class="nav-btn">📅 Today</button>
+        <button data-page="roadmap" class="nav-btn">📍 Roadmap</button>
+        <button data-page="overdue" class="nav-btn">⚠️ Overdue</button>
+        <button data-page="summary" class="nav-btn">📊 Daily Summary</button>
+        <button data-page="settings" class="nav-btn">⚙️ Settings</button>
+      </nav>
+
+      <!-- Bottom area of the sidebar: theme toggle and app version -->
+      <div class="sidebar-bottom">
+        <button id="themeToggle" class="theme-toggle">🌙 Dark Mode</button>
+        <p class="version">Version 1.0.0</p>
+      </div>
+    </aside>
+
+    <main class="main">
+      <!-- Main area: header with title/actions, and dynamic content section -->
+      <header class="main-header">
+        <div>
+          <h2 id="pageTitle">Welcome Back!</h2>
+          <p id="pageSubtitle">Here's your productivity overview</p>
+        </div>
+        <div>
+          <button id="newTaskBtn" class="btn primary">+ New Task</button>
+        </div>
+      </header>
+
+      <section id="content" class="content">
+        <!-- Dynamic content: JavaScript (app.js) injects page content here based on current route -->
+      </section>
+    </main>
+  </div>
+
+  <!-- modal -->
+  <!-- Modal: used for creating/editing tasks. Backdrop and dialog are toggled by JS -->
+  <div id="modalBackdrop" class="modal-backdrop hidden"></div>
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-inner">
+      <div class="modal-head">
+        <h3 id="modalTitle">New Task</h3>
+        <button id="closeModal" class="icon-btn">✖</button>
+      </div>
+
+      <form id="taskForm" class="form">
+        <label>Task Title
+          <input id="taskTitle" required placeholder="Enter task title..." />
+        </label>
+
+        <div class="row">
+          <label>Deadline Date
+            <input id="taskDate" type="date" />
+          </label>
+
+          <label>Time
+            <input id="taskTime" type="time" />
+          </label>
+        </div>
+
+        <div class="row">
+          <label>Category
+            <select id="taskCategory">
+              <option value="Personal">🏠 Personal</option>
+              <option value="Work">💼 Work</option>
+              <option value="Study">📚 Study</option>
+              <option value="Fitness">💪 Fitness</option>
+            </select>
+          </label>
+
+          <label>Priority
+            <select id="taskPriority">
+              <option value="Highest">🔴 Highest</option>
+              <option value="High">🔺 High</option>
+              <option value="Medium">🟡 Medium</option>
+              <option value="Low">🟢 Low</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="modal-actions">
+          <button id="saveTask" type="submit" class="btn primary wide">Add Task</button>
+          <button id="cancelTask" type="button" class="btn">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- toast -->
+  <!-- Toast: small transient message box used by JS for feedback (add/update/delete) -->
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

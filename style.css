@@ -1,0 +1,113 @@
+/*
+  style.css — Theme variables and component styles for TaskFlow Pro
+  - CSS custom properties define dark/light themes and accent colors
+  - Sections below control layout, navigation, cards, modal, toast, and utilities
+  Keep class names consistent with `index.html` and selectors used in `app.js`.
+*/
+
+:root{
+  --bg-1: #0f0b1a;
+  --bg-2: #3b135f;
+  --panel: rgba(255,255,255,0.06);
+  --glass: rgba(255,255,255,0.06);
+  --text: #ffffff;
+  --muted: #c9bfe6;
+  --accent1: #8b5cf6;
+  --accent2: #ec4899;
+  --primary: linear-gradient(90deg,var(--accent1),var(--accent2));
+  --highest: #FF0000; /* requested brightest red */
+}
+
+/* Light theme variables override */
+:root[data-theme="light"]{
+  --bg-1: #fff;
+  --bg-2: #f7edf9;
+  --panel: rgba(255,255,255,0.95);
+  --glass: rgba(0,0,0,0.03);
+  --text: #111827;
+  --muted: #555;
+}
+
+/* base */
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial}
+body{background:linear-gradient(180deg,var(--bg-1),var(--bg-2));color:var(--text);min-height:100vh;}
+
+/* layout */
+.app{display:flex;min-height:100vh}
+.sidebar{width:260px;padding:28px 20px;background:linear-gradient(180deg,rgba(0,0,0,0.45), rgba(0,0,0,0.2));backdrop-filter: blur(6px);display:flex;flex-direction:column;justify-content:space-between}
+.brand h1{margin:0;font-size:22px;letter-spacing:-0.5px}
+.brand p.muted{margin:6px 0 16px;color:var(--muted);font-size:13px}
+
+/* nav */
+.nav{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.nav-btn{background:transparent;border:none;color:var(--muted);text-align:left;padding:12px;border-radius:12px;font-size:15px;cursor:pointer;transition:all .18s}
+.nav-btn:hover{transform:translateX(6px);color:var(--text)}
+.nav-btn.active{background:var(--panel);color:var(--text);box-shadow:0 6px 20px rgba(0,0,0,0.4);border-left:6px solid rgba(255,255,255,0.06)}
+
+/* sidebar bottom */
+.sidebar-bottom{margin-top:auto}
+.theme-toggle{width:100%;padding:12px;border-radius:12px;background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted);cursor:pointer}
+.version{font-size:12px;color:var(--muted);margin-top:10px}
+
+/* main */
+.main{flex:1;padding:28px 36px;overflow:auto}
+.main-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.main-header h2{margin:0;font-size:36px}
+.main-header p{margin:4px 0 0;color:var(--muted)}
+.btn{padding:10px 14px;border-radius:10px;border:none;cursor:pointer;background:transparent;color:var(--text)}
+.btn.primary{background:var(--primary);color:white;box-shadow:0 10px 30px rgba(139,92,246,0.14)}
+.btn.wide{width:100%}
+
+/* content card style */
+.card{background:var(--panel);border-radius:14px;padding:18px;margin-bottom:14px;box-shadow:0 8px 30px rgba(2,2,10,0.4);border:1px solid rgba(255,255,255,0.03)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+
+/* task list */
+.task{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03)}
+.task .left{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;background:linear-gradient(90deg,#a78bfa,#f0abfc);color:white}
+.task .info{flex:1}
+.task h4{margin:0 0 6px 0;font-size:16px}
+.meta{font-size:13px;color:var(--muted);display:flex;gap:10px;align-items:center}
+.badge{padding:6px 10px;border-radius:999px;font-size:13px;color:white;display:inline-flex;gap:8px;align-items:center}
+.badge.personal{background:linear-gradient(90deg,#10b981,#06b6d4)}
+.badge.work{background:linear-gradient(90deg,#7c3aed,#ec4899)}
+.badge.study{background:linear-gradient(90deg,#60a5fa,#06b6d4)}
+.badge.fitness{background:linear-gradient(90deg,#fb7185,#fb923c)}
+.priority-high{color:#ffb86b}
+.priority-medium{color:#ffd25a}
+.priority-low{color:#8ef3b8}
+.priority-high .dot{width:10px;height:10px;border-radius:50%;background:#ffb86b;display:inline-block;margin-right:6px}
+
+/* progress runner bar */
+.progress-wrap{height:36px;background:rgba(0,0,0,0.2);border-radius:999px;overflow:hidden;position:relative}
+.progress-fill{height:100%;background:#34d399;width:0%;transition:width 800ms linear;display:flex;align-items:center;padding:0 12px;color:white;font-weight:600;justify-content:space-between}
+
+/* modal and blur */
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);z-index:90}
+.modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:720px;max-width:94%;z-index:100;border-radius:12px;box-shadow:0 30px 80px rgba(3,3,10,0.7)}
+.modal-inner{background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));padding:20px;border-radius:12px}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.icon-btn{background:transparent;border:none;color:var(--muted);font-size:18px;cursor:pointer}
+.form label{display:block;margin-bottom:10px;color:var(--muted)}
+.form input,.form select{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)}
+.row{display:flex;gap:12px}
+.row label{flex:1}
+.modal-actions{display:flex;gap:12px;margin-top:12px;align-items:center}
+
+/* toast */
+.toast{position:fixed;right:20px;bottom:20px;background:var(--panel);color:var(--text);padding:12px 16px;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,0.5);z-index:200}
+
+/* utilities */
+.hidden{display:none}
+.muted{color:var(--muted)}
+.center{text-align:center}
+
+/* overdue style */
+.overdue{border-left:6px solid var(--highest);}
+
+/* responsive */
+@media (max-width:900px){
+  .sidebar{display:none}
+  .main{padding:18px}
+}
